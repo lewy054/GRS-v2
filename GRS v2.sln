@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRS", "GRS\GRS.csproj", "{CF32CAAA-D6DB-4044-9662-B6C9A904A06C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GRS-web", "GRS-web\GRS-web.csproj", "{2B25C8AA-5F10-4D11-907E-5658415FB522}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF32CAAA-D6DB-4044-9662-B6C9A904A06C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF32CAAA-D6DB-4044-9662-B6C9A904A06C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF32CAAA-D6DB-4044-9662-B6C9A904A06C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF32CAAA-D6DB-4044-9662-B6C9A904A06C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B25C8AA-5F10-4D11-907E-5658415FB522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B25C8AA-5F10-4D11-907E-5658415FB522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B25C8AA-5F10-4D11-907E-5658415FB522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B25C8AA-5F10-4D11-907E-5658415FB522}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
