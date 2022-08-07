@@ -1,85 +1,132 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <v-app>
+    <v-app-bar
+        id="grs-navbar"
+        density="compact"
+    >
+      <template v-slot:prepend>
+        <v-app-bar-nav-icon @click="store.changeSideBarVisibility()"></v-app-bar-nav-icon>
+      </template>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <v-spacer/>
+      <v-app-bar-title>
+        <v-img src="/src/images/GRSwhiteV2.png" width="100" class="mx-auto"></v-img>
+      </v-app-bar-title>
+      <v-spacer/>
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+      <template v-slot:append>
+        <v-icon>mdi-account-circle</v-icon>
+      </template>
+    </v-app-bar>
 
-  <RouterView />
+    <v-navigation-drawer v-model="store.sideBar" absolute class="dark-transparent">
+      <router-link to="/" class="reset-a">
+        <v-list-item prepend-icon="mdi-home">
+          Home
+        </v-list-item>
+      </router-link>
+      <router-link to="/forum" class="reset-a">
+        <v-list-item prepend-icon="mdi-forum">
+          Forum
+        </v-list-item>
+      </router-link>
+      <router-link to="/maps" class="reset-a">
+        <v-list-item prepend-icon="mdi-map">
+          Maps
+        </v-list-item>
+      </router-link>
+      <router-link to="/clans" class="reset-a">
+        <v-list-item prepend-icon="mdi-sitemap">
+          Clans
+        </v-list-item>
+      </router-link>
+      <router-link to="/monitor" class="reset-a">
+        <v-list-item prepend-icon="mdi-monitor">
+          Monitor
+        </v-list-item>
+      </router-link>
+      <router-link to="/donate" class="reset-a">
+        <v-list-item prepend-icon="mdi-currency-usd">
+          Donate
+        </v-list-item>
+      </router-link>
+    </v-navigation-drawer>
+    <v-main class="body">
+      <router-view/>
+    </v-main>
+    <v-footer absolute app="true" width="auto" style="max-height: 50px;" id="grs-footer">
+      <v-row>
+        <v-col>
+          GRS © 2021
+        </v-col>
+        <v-col cols="auto" class="float-right align-content-end">
+          <v-icon>mdi-discord</v-icon>
+          <v-icon class="ml-5">mdi-youtube</v-icon>
+        </v-col>
+      </v-row>
+    </v-footer>
+  </v-app>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script setup lang="ts">
+import {useMainStore} from "./stores/main.js";
+
+const store = useMainStore();
+</script>
+
+<style lang="scss">
+@import "./style/buttons.scss";
+@import "./style/site.scss";
+@import "./style/colors.scss";
+
+
+html {
+  position: relative;
+  min-height: 100%;
+  font-size: 14px;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
   }
 }
+
+.body {
+  font-family: 'Poppins', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('./images/grs-logo.svg') no-repeat center center fixed;
+  background-size: cover;
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  padding-bottom: 10px;
+}
+
+.grs-body {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#grs-navbar {
+  background-color: var(--navbar-color);
+}
+
+#grs-footer {
+  background-color: var(--navbar-color);
+}
+
+.reset-a, .reset-a:visited, .reset-a:focus, .reset-a:active {
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
+}
+
+.reset-a:hover {
+  color: var(--winter-sky) !important;
+}
+
 </style>

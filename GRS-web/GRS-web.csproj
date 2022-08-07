@@ -7,4 +7,9 @@
         <RootNamespace>GRS_web</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <TypeScriptCompile Include="GRS-web\src\router\index.ts" />
+      <TypeScriptCompile Include="GRS-web\src\stores\main.ts" />
+    </ItemGroup>
+
 </Project>
