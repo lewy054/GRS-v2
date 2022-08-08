@@ -20,32 +20,32 @@
     </v-app-bar>
 
     <v-navigation-drawer v-model="store.sideBar" absolute class="dark-transparent">
-      <router-link to="/" class="reset-a">
+      <router-link to="/" class="reset-a" @click="store.changeSideBarVisibility()">
         <v-list-item prepend-icon="mdi-home">
           Home
         </v-list-item>
       </router-link>
-      <router-link to="/forum" class="reset-a">
+      <router-link to="/forum" class="reset-a" @click="store.changeSideBarVisibility()">
         <v-list-item prepend-icon="mdi-forum">
           Forum
         </v-list-item>
       </router-link>
-      <router-link to="/maps" class="reset-a">
+      <router-link to="/maps" class="reset-a" @click="store.changeSideBarVisibility()">
         <v-list-item prepend-icon="mdi-map">
           Maps
         </v-list-item>
       </router-link>
-      <router-link to="/clans" class="reset-a">
+      <router-link to="/clans" class="reset-a" @click="store.changeSideBarVisibility()">
         <v-list-item prepend-icon="mdi-sitemap">
           Clans
         </v-list-item>
       </router-link>
-      <router-link to="/monitor" class="reset-a">
+      <router-link to="/monitor" class="reset-a" @click="store.changeSideBarVisibility()">
         <v-list-item prepend-icon="mdi-monitor">
           Monitor
         </v-list-item>
       </router-link>
-      <router-link to="/donate" class="reset-a">
+      <router-link to="/donate" class="reset-a" @click="store.changeSideBarVisibility()">
         <v-list-item prepend-icon="mdi-currency-usd">
           Donate
         </v-list-item>
@@ -57,11 +57,15 @@
     <v-footer absolute app="true" width="auto" style="max-height: 50px;" id="grs-footer">
       <v-row>
         <v-col>
-          GRS © 2021
+          GRS © 2022
         </v-col>
         <v-col cols="auto" class="float-right align-content-end">
-          <v-icon>mdi-discord</v-icon>
+          <router-link class="reset-a" to="discord">
+            <v-icon>mdi-discord</v-icon>
+          </router-link>
+          <router-link class="reset-a" to="youtube">
           <v-icon class="ml-5">mdi-youtube</v-icon>
+          </router-link>
         </v-col>
       </v-row>
     </v-footer>

@@ -1,5 +1,5 @@
 ﻿<template>
-  <v-breadcrumbs :items="props.breadCrumbsItems">
+  <v-breadcrumbs :items="props.breadCrumbsItems" class="text-capitalize">
     <template v-slot:divider>//</template>
   </v-breadcrumbs>
 </template>
