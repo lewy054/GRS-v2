@@ -4,34 +4,60 @@
     <v-text-field hide-details label="Search" class="rounded-xl" append-inner-icon="mdi-magnify"/>
   </v-container>
   <v-container>
-    <v-list>
-      <v-list-item title="Test Map 1" class="mt-2 reset-a" 
-                   subtitle="Author: User">
-        <template v-slot:prepend>
-          <v-avatar>
-            <v-icon size="x-large" color="blue">mdi-chevron-right</v-icon>
-          </v-avatar>
-        </template>
-        <template v-slot:append>
-          <v-avatar>
+    <v-expansion-panels>
+      <v-expansion-panel>
+        <v-expansion-panel-title expand-icon="mdi-plus" collapse-icon="mdi-minus">
+          <v-avatar class="mr-3">
             <v-icon size="x-large" color="red">mdi-close</v-icon>
           </v-avatar>
-        </template>
-      </v-list-item>
-      <v-list-item title="Test Map 2" class="mt-2 reset-a"
-                   subtitle="Author: User2">
-        <template v-slot:prepend>
-          <v-avatar>
-            <v-icon size="x-large" color="blue">mdi-chevron-right</v-icon>
-          </v-avatar>
-        </template>
-        <template v-slot:append>
-          <v-avatar>
+          Test Map 1
+          Author:User
+          <v-divider/>
+          <template v-slot:actions="{ expanded }">
+            <v-icon size="x-large" color="blue" :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-icon>
+          </template>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <span style="color: gray; font-size: 0.8em" class="font-weight-bold">Rejected 2 Hours Ago</span>
+          <v-divider/>
+          <span style="color: blue">~Lewy~: </span> Bad map
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-title>
+          <v-avatar class="mr-3">
             <v-icon size="x-large" color="green">mdi-check</v-icon>
           </v-avatar>
-        </template>
-      </v-list-item>
-    </v-list>
+          Test Map 2
+          <template v-slot:actions="{ expanded }">
+            <v-icon size="x-large" color="blue" :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-icon>
+          </template>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <span style="color: gray; font-size: 0.8em" class="font-weight-bold">Accepted 2 Hours Ago</span>
+          <v-divider/>
+          <span style="color: blue">~Lewy~: </span> Good map
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+
+      <v-expansion-panel>
+        <v-expansion-panel-title disable-icon-rotate>
+          <v-avatar class="mr-3">
+            <v-icon size="x-large" color="red">mdi-close</v-icon>
+          </v-avatar>
+          Test Map 3
+          <template v-slot:actions="{ expanded }">
+            <v-icon size="x-large" color="blue" :icon="expanded ? 'mdi-chevron-up' : 'mdi-chevron-down'"></v-icon>
+          </template>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <span style="color: gray; font-size: 0.8em" class="font-weight-bold">Rejected 2 Hours Ago</span>
+          <v-divider/>
+          <span style="color: blue">~Lewy~: </span> Bad map
+        </v-expansion-panel-text>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-container>
   </v-card>
 </template>

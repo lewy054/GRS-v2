@@ -133,4 +133,9 @@ html {
   color: var(--winter-sky) !important;
 }
 
+
+.v-list-item:hover{
+  background-color: var(--grs-grey-900);
+}
+
 </style>
