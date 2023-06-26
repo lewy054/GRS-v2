@@ -1,0 +1,26 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GRSAccountProto";
+
+package GRSAccountManager;
+
+service GRSAccountManager {
+  rpc Login (LoginRequest) returns (GenericResponse);
+  rpc Register (RegisterRequest) returns (GenericResponse);
+}
+
+message LoginRequest {
+  string login = 1;
+  string password = 2;
+}
+
+message GenericResponse {
+  bool status = 1;
+  optional string error = 2;
+}
+
+message RegisterRequest {
+  string login = 1;
+  string password = 2;
+  string email = 3;
+}
