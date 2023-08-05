@@ -7,22 +7,28 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+        <PackageReference Include="Google.Protobuf" Version="3.23.3" />
         <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.54.0" />
+        <PackageReference Include="Grpc.Net.ClientFactory" Version="2.54.0" />
+        <PackageReference Include="Grpc.Tools" Version="2.56.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.19" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.18" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.18" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.18" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.18">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.14" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Model" />
+        <Protobuf Include="application\authentication.proto" GrpcServices="server" />
+        <Protobuf Include="application\forum.proto" GrpcServices="server" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Protobuf Include="Application\greet.proto">
-        <GrpcServices>Server</GrpcServices>
-        <Access>Public</Access>
-        <ProtoCompile>True</ProtoCompile>
-        <CompileOutputs>True</CompileOutputs>
-        <OutputDir>obj\Debug\net6.0\</OutputDir>
-        <Generator>MSBuild:Compile</Generator>
-      </Protobuf>
-    </ItemGroup>
-
 </Project>

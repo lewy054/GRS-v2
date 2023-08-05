@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GRSForumProto";
+
+service GRSForumManager {
+  rpc CreateThread (CreateThreadRequest) returns (GenericResponse);
+  rpc Comment (CommentRequest) returns (GenericResponse);
+}
+
+message GenericResponse {
+  bool status = 1;
+  optional string error = 2;
+}
+
+message CreateThreadRequest {
+  string userId = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message CommentRequest {
+  string userId = 1;
+  string threadId = 2;
+  string content = 3;
+}
