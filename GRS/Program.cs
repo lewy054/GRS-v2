@@ -1,42 +1,41 @@
 using System.Text;
 using GRS;
 using GRS.Application;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using GRS.Infrastructure;
+using GRS.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
-
-// Add services to the container.
 builder.Services.AddGrpc();
-builder.Services.AddAuthentication(options =>
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection(JwtSettings.JwtSectionName));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+builder.Services.AddAuthentication().AddJwtBearer(options => 
 { 
-    options.RequireHttpsMetadata = false;
+    options.RequireHttpsMetadata = true;
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtAuthenticationManager.JWT_TOKEN_KEY)),
-        ValidateIssuer = false,
-        ValidateAudience = false
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            builder.Configuration.GetSection($"{JwtSettings.JwtSectionName}:Key").Value)),
+        ValidateIssuer = true,
+        ValidateAudience = true
     };
 });
 builder.Services.AddAuthorization();
 builder.Services.AddGrpc();
+builder.Services.AddSingleton<JwtAuthenticationManager>();
 
 var app = builder.Build();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Configure the HTTP request pipeline.
-app.MapGrpcService<AccountService>();
 app.MapGrpcService<AuthenticationService>();
 app.MapGet("/",
     () =>

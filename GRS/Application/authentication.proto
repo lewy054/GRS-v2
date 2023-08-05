@@ -1,20 +1,32 @@
-﻿
-syntax = "proto3";
+﻿syntax = "proto3";
 
 option csharp_namespace = "GRSAccountProto";
 
 package GRSAuthentication;
 
 service Authentication {
-  rpc Authenticate (AuthenticationRequest) returns (AuthenticationResponse);
+  rpc Login (LoginRequest) returns (AuthenticationResponse);
+  rpc Register (RegisterRequest) returns (GenericResponse);
 }
 
-message AuthenticationRequest{
-  string UserName = 1;
-  string Password = 2;
+message LoginRequest{
+  string userName = 1;
+  string password = 2;
 }
 
 message AuthenticationResponse{
-  string AccessToken = 1;
-  int32 ExpiresIn = 2;
+  bool status = 1;
+  optional string token = 2;
+  optional int32 expiresIn = 3;
+}
+
+message RegisterRequest {
+  string login = 1;
+  string password = 2;
+  string email = 3;
+}
+
+message GenericResponse {
+  bool status = 1;
+  optional string error = 2;
 }

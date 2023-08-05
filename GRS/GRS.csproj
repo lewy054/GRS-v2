@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
         <PackageReference Include="Google.Protobuf" Version="3.23.3" />
         <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
         <PackageReference Include="Grpc.Net.Client" Version="2.54.0" />
@@ -27,7 +28,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Protobuf Include="application\account.proto" GrpcServices="server" />
         <Protobuf Include="application\authentication.proto" GrpcServices="server" />
         <Protobuf Include="application\forum.proto" GrpcServices="server" />
     </ItemGroup>
