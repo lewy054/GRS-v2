@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using GRS;
 using GRS.Application;
@@ -14,8 +15,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddAuthentication().AddJwtBearer(options => 
-{ 
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
     options.RequireHttpsMetadata = true;
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
@@ -30,6 +31,7 @@ builder.Services.AddAuthentication().AddJwtBearer(options =>
 builder.Services.AddAuthorization();
 builder.Services.AddGrpc();
 builder.Services.AddSingleton<JwtAuthenticationManager>();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 var app = builder.Build();
 app.UseRouting();

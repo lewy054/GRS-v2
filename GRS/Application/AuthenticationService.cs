@@ -1,62 +1,48 @@
 ﻿using Grpc.Core;
-using GRS.Infrastructure;
-using GRS.Model.User;
+using GRS.Application.AuthenticationCommands;
 using GRSAccountProto;
-using Microsoft.EntityFrameworkCore;
+using MediatR;
 
 namespace GRS.Application;
 
-public class AuthenticationService : Authentication.AuthenticationBase
+public class AuthenticationService : GRSAccountProto.Authentication.AuthenticationBase
 {
-    private readonly JwtAuthenticationManager _jwtAuthenticationManager;
-    private readonly ApplicationDbContext _context;
+    private readonly IMediator _mediator;
 
-    public AuthenticationService(JwtAuthenticationManager jwtAuthenticationManager, ApplicationDbContext context)
+    public AuthenticationService(IMediator mediator)
     {
-        _jwtAuthenticationManager = jwtAuthenticationManager;
-        _context = context;
+        _mediator = mediator;
     }
 
     public override async Task<AuthenticationResponse> Login(LoginRequest request, ServerCallContext context)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(e => e.UserName == request.UserName,
-            context.CancellationToken);
-        if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+        var response = await _mediator.Send(new LoginUserCommand.Request()
         {
-            return new AuthenticationResponse()
-            {
-                Status = false,
-            };
-        }
+            UserName = request.UserName,
+            Password = request.Password
+        });
 
-        var (token, expiresIn) = _jwtAuthenticationManager.GenerateToken(user.UserName, user.Roles);
         return new AuthenticationResponse()
         {
-            Status = true,
-            Token = token,
-            ExpiresIn = expiresIn,
+            Status = response.Succeeded,
+            Token = response.Token,
+            ExpiresIn = response.ExpiresIn,
         };
     }
 
     public override async Task<GenericResponse> Register(RegisterRequest request, ServerCallContext context)
     {
-        var nameOccupation = await _context.Users
-            .FirstOrDefaultAsync(e => e.UserName == request.Login, context.CancellationToken);
-        if (nameOccupation != null)
+        var response = await _mediator.Send(new RegisterUserCommand.Request()
         {
-            return new GenericResponse()
-            {
-                Status = false,
-                Error = "Name already taken"
-            };
-        }
+            UserName = request.Login,
+            Email = request.Email,
+            Password = request.Password,
+        });
 
-        var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password, 14);
-        await _context.Users.AddAsync(new User(request.Login, passwordHash, request.Email), context.CancellationToken);
-        await _context.SaveChangesAsync(context.CancellationToken);
         return new GenericResponse()
         {
-            Status = true,
+            Status = response.Succeeded,
+            Error = response.Error,
         };
     }
 }
