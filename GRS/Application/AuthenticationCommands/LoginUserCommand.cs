@@ -36,7 +36,7 @@ public static class LoginUserCommand
                 };
             }
 
-            var (token, expiresIn) = _jwtAuthenticationManager.GenerateToken(user.UserName, user.Roles);
+            var (token, expiresIn) = _jwtAuthenticationManager.GenerateToken(user.Id.ToString(), user.UserName, user.Roles);
             return new Response()
             {
                 Token = token,

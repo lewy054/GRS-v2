@@ -3,7 +3,8 @@
 public class Comment
 {
     public Guid Id { get; } = Guid.NewGuid();
-    public Guid ThreadId { get; set; }
-    public Guid CreatorId { get; set; }
+    public Thread Thread { get; set; }
+    public User.User User { get; set; }
     public string Content { get; set; }
+    
 }
